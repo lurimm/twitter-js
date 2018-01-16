@@ -1,5 +1,6 @@
 const express = require('express');
 const nunjucks = require('nunjucks');
+const routes = require('./routes');
 
 const app = express();
 
@@ -9,26 +10,7 @@ nunjucks.configure('views', { noCache: true }) // point nunjucks to the proper d
 
 app.listen(3000, () => console.log('Server listening'));
 
-app.get('/', function(req, res, next) {
-    res.send('Welcome');
-    next();
-});
-
-app.get('/news', function(req, res, next) {
-    res.send('This is the news');
-    next();
-});
-
-app.get('/special', function(req, res, next) {
-    res.send('This is a special page');
-    next();
-});
-
-app.get('/rendertest', function(req, res, next) {
-    var people = [{name: 'Gandalf'},{name: 'Frodo'}, {name: 'Hermione'}];
-    res.render('index.html', {title: 'An Example', people: people});
-    next();
-})
+app.use('/', routes);
 
 app.use('/special', (req, res, next) => {
     console.log('User reached the special page');
