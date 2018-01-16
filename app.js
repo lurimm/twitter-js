@@ -14,6 +14,16 @@ app.get('/news', function(req, res, next) {
     next();
 });
 
+app.get('/special', function(req, res, next) {
+    res.send('This is a special page');
+    next();
+});
+
+app.use('/special', (req, res, next) => {
+    console.log('User reached the special page');
+    next();
+})
+
 app.use((req, res, next) => {
    const method = req.method;
    const path = req.path;
