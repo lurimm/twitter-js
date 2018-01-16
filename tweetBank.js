@@ -3,7 +3,8 @@ const _ = require('lodash');
 let data = [];
 
 function add (name, content) {
-  data.push({ name: name, content: content });
+  var randNum = Math.floor(Math.random() * 1000);
+  data.push({ name: name, content: content, id: randNum });
 }
 
 function list () {
@@ -11,6 +12,8 @@ function list () {
 }
 
 function find (properties) {
+  console.log(properties);
+  console.log(data);
   return _.cloneDeep(_.filter(data, properties));
 }
 
