@@ -5,14 +5,16 @@ const router = express.Router();
 
 module.exports = function (io) {
     // parse application/x-www-form-urlencoded
+    router.use(express.static(__dirname + '/../public'));
     router.use(bodyParser.urlencoded({ extended: false }))
 
     // parse application/json
     router.use(bodyParser.json())
 
     router.get('/', function (req, res) {
-    let tweets = tweetBank.list();
-    res.render( 'index', { tweets: tweets, showForm: true } );
+        let tweets = tweetBank.list();
+        res.render( 'index', { tweets: tweets, showForm: true } );
+        console.log('HERE');
     });
 
     router.get('/users/:name', function(req, res) {
@@ -29,14 +31,14 @@ module.exports = function (io) {
     })
 
     router.post('/tweets', function(req, res) {
-        var name = req.body.name;
         var text = req.body.text;
-        tweetBank.add(name, text);
-        io.sockets.emit('newTweet', { /* tweet info */ });
+        var name = req.body.name;
+        newTweet = tweetBank.add(name, text);
+        io.sockets.emit('newTweet', newTweet);
         res.redirect('/');
     });
 
-    return router; 
+    return router;
 }
 
 // router.get("/stylesheets/style.css", function(req, res) {

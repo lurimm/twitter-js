@@ -14,9 +14,11 @@
     <div class="col-md-9">
 
       <!-- display tweets here -->
+      <div id="tweets">
   {% for tweet in tweets %}
     <li><a href="/users/{{tweet.name}}">{{tweet.name}}</a> - <a href="/tweets/{{tweet.id}}">{{tweet.content}}</a></li>
   {% endfor %}
+    </div>
 
   {% if showForm %}
   <form action="/tweets" method="POST">
@@ -32,22 +34,4 @@
 
     </div>
   </div>
-
-  <script src="/socket.io/socket.io.js"></script>
-<script>
-  // Load the socket.io library above, then connect to the server.
-  // Because the socket.io server is being run on the same server as your 
-  // Express instance, you can connect() without any arguments.
-  var socket = io.connect();
-  socket.on('connect', function(){
-    console.log('connected to server via WebSockets!');
-  });
-  // When 'new_tweet' events are fired, do something with the packaged tweet
-  socket.on('newTweet', function (tweet) { 
-    console.log(tweet);
-    alert('Refreshing... check the console...');
-    // some logic to add the new tweet to the DOM…
-  }); 
-</script>
-
 {% endblock %}

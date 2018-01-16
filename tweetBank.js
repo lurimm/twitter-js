@@ -4,7 +4,9 @@ let data = [];
 
 function add (name, content) {
   var randNum = Math.floor(Math.random() * 1000);
-  data.push({ name: name, content: content, id: randNum });
+  var newTweet = {name : name, content:content, id: randNum};
+  data.push(newTweet);
+  return newTweet;
 }
 
 function list () {
