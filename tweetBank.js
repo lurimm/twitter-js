@@ -12,8 +12,6 @@ function list () {
 }
 
 function find (properties) {
-  console.log(properties);
-  console.log(data);
   return _.cloneDeep(_.filter(data, properties));
 }
 
