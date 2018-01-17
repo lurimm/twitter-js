@@ -4,17 +4,18 @@ const tweetBank = require('../tweetBank');
 const router = express.Router();
 
 module.exports = function (io) {
-    // parse application/x-www-form-urlencoded
     router.use(express.static(__dirname + '/../public'));
+
+    // parse application/x-www-form-urlencoded
     router.use(bodyParser.urlencoded({ extended: false }))
 
     // parse application/json
     router.use(bodyParser.json())
 
-    router.get('/', function (req, res) {
+    router.get('/', function (req, res, next) {
         let tweets = tweetBank.list();
         res.render( 'index', { tweets: tweets, showForm: true } );
-        console.log('HERE');
+        next();
     });
 
     router.get('/users/:name', function(req, res) {
@@ -25,7 +26,7 @@ module.exports = function (io) {
 
     router.get('/tweets/:id', function(req, res) {
         var id = +req.params.id;
-        var tweets = tweetBank.find( {id: id});
+        var tweets = tweetBank.find( {id: id} );
         console.log(tweets);
         res.render( 'index', { tweets: tweets});
     })

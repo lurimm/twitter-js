@@ -63,7 +63,7 @@
       <div class="container">
         {% block content %}Welcome to Twitter.js{% endblock %}
       </div> <!-- end container -->
-      
+
     </div>
 
     <div id="footer">
@@ -82,21 +82,20 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
     // Load the socket.io library above, then connect to the server.
-    // Because the socket.io server is being run on the same server as your 
+    // Because the socket.io server is being run on the same server as your
     // Express instance, you can connect() without any arguments.
     var socket = io.connect();
     socket.on('connect', function(){
         console.log('connected to server via WebSockets!');
     });
     // When 'new_tweet' events are fired, do something with the packaged tweet
-    socket.on('newTweet', function (tweet) { 
-        console.log(tweet);
+    socket.on('newTweet', function (tweet) {
         var div = document.getElementById('tweets');
         var newTweetNode = document.createElement("li");
-        div.innerHTML = `</a href="/users/${tweet.name}">${tweet.name}</a> - <a href="/tweets/${tweet.id}">${tweet.text}</a>`
+        newTweetNode.innerHTML = `<a href="/users/${tweet.name}">${tweet.name}</a> - <a href="/tweets/${tweet.id}">${tweet.content}</a>`
         div.appendChild(newTweetNode);
         // some logic to add the new tweet to the DOM…
-    }); 
+    });
     </script>
   </body>
 </html>
